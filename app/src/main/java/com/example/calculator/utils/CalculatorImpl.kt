@@ -3,12 +3,17 @@ package com.example.calculator.utils
 import com.example.calculator.R
 
 class CalculatorImpl(calculator: Calculator) {
+    //回调
     private var callback: Calculator? = calculator
 
+    //需要展示的结果
     private var inputDisplayFormula = "0"
 
     private val operations = listOf("+", "-", "*", "/", "^", "%", "√")
 
+    /**
+     *小数字绑定
+     */
     fun numpadClicked(id: Int) {
         when (id) {
             R.id.btn_decimal -> decimalClicked()
@@ -27,6 +32,7 @@ class CalculatorImpl(calculator: Calculator) {
 
     }
 
+    //增加数字
     private fun addDigit(number: Int) {
         if (inputDisplayFormula == "0")
             inputDisplayFormula = ""
@@ -34,6 +40,7 @@ class CalculatorImpl(calculator: Calculator) {
         callback!!.showNewResult(inputDisplayFormula)
     }
 
+    //获取可能存在的最后一个数字
     private fun getLastValue(): String {
         val checkVal: String = if (inputDisplayFormula.startsWith('-')) {
             inputDisplayFormula.substring(1)
@@ -69,6 +76,7 @@ class CalculatorImpl(calculator: Calculator) {
         callback!!.showNewResult(inputDisplayFormula)
     }
 
+    //reset操作
     fun handleReset() {
         resetValues()
         callback!!.showNewResult(inputDisplayFormula)
@@ -79,6 +87,7 @@ class CalculatorImpl(calculator: Calculator) {
         inputDisplayFormula = "0"
     }
 
+    //尝试计算当前结果
     private fun tryToCalculate() {
         if (inputDisplayFormula == "")
             inputDisplayFormula = "0"
@@ -141,6 +150,7 @@ class CalculatorImpl(calculator: Calculator) {
             '/' -> (firstValue / secondValue).toString()
             else -> ""
         }
+        //将小数点后面可能为0的情况删除
         if (inputDisplayFormula.toDouble().toInt().toDouble() == inputDisplayFormula.toDouble()) {
             inputDisplayFormula = inputDisplayFormula.toDouble().toInt().toString()
         }

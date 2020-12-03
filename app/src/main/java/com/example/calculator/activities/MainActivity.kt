@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), Calculator {
         arrayOf(btn_decimal, btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9)
 
 
+    // 更新结果
     override fun showNewResult(value: String) {
         result.text = value
     }
